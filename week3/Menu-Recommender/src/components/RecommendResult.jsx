@@ -61,8 +61,6 @@ const RecommendResultImageWrapper = styled.div`
   width: 15rem;
   height: 15rem;
   margin-top: 2rem;
-
-  background-color: red;
 `;
 
 const RecommendResultMenu = styled.div`

@@ -3,16 +3,16 @@ import styled from "styled-components";
 import { menuData } from "../utils/MenuData";
 
 const RandomResult = ({ setStep }) => {
-  const randomCategoryIndex = Math.floor(Math.random() * menuData.length);
-  const randomSubCategoryIndex = Math.floor(
-    Math.random() * menuData[randomCategoryIndex].length
+  const randomFirstIndex = Math.floor(Math.random() * menuData.length);
+  const randomSecondIndex = Math.floor(
+    Math.random() * menuData[randomFirstIndex].length
   );
-  const randomDishIndex = Math.floor(
-    Math.random() * menuData[randomCategoryIndex][randomSubCategoryIndex].length
+  const randomThirdIndex = Math.floor(
+    Math.random() * menuData[randomFirstIndex][randomSecondIndex].length
   );
 
-  const randomDish =
-    menuData[randomCategoryIndex][randomSubCategoryIndex][randomDishIndex];
+  const randomFood =
+    menuData[randomFirstIndex][randomSecondIndex][randomThirdIndex];
 
   const [count, setCount] = useState(3);
 
@@ -28,8 +28,8 @@ const RandomResult = ({ setStep }) => {
     return () => clearInterval(timer);
   }, [count]);
 
-  const resultMenu = randomDish.menu;
-  const resultMenuImg = randomDish.img;
+  const resultMenu = randomFood.menu;
+  const resultMenuImg = randomFood.img;
 
   const handleClickResetButton = () => {
     setStep(-1);

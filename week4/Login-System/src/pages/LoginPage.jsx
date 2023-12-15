@@ -14,9 +14,20 @@ import {
   PageWrapper,
 } from "../styles/index";
 
+import { createPortal } from "react-dom";
+
 const LoginPage = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
+  const [failMessage, setFailMessage] = useState(null);
+  const [isToastOn, setIsToastOn] = useState(false);
+
+  async function handleToast() {
+    await setIsToastOn(true);
+    setTimeout(() => {
+      setIsToastOn(false);
+    }, 1500);
+  }
 
   const navigate = useNavigate();
 
@@ -48,7 +59,8 @@ const LoginPage = () => {
           }
         })
         .catch(function (error) {
-          console.log(error);
+          setFailMessage(error.response.data.message);
+          handleToast();
         });
     }
   };
@@ -86,6 +98,14 @@ const LoginPage = () => {
         <Button onClick={handleClickLoginButton}>로그인</Button>
         <SignUpButton onClick={handleClickSignUpButton}>회원가입</SignUpButton>
       </ModalContainer>
+      {failMessage && isToastOn ? (
+        createPortal(
+          <Toast>{failMessage}</Toast>,
+          document.getElementById("toast")
+        )
+      ) : (
+        <></>
+      )}
     </PageWrapper>
   );
 };
@@ -107,4 +127,24 @@ const SignUpButton = styled.button`
 
     cursor: pointer;
   }
+`;
+
+const Toast = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  left: 50%;
+  bottom: 4rem;
+  transform: translate(-50%, 0%);
+
+  width: 25%;
+  height: 2rem;
+
+  border-radius: 0.3rem;
+
+  background-color: rgba(0, 0, 0, 0.75);
+
+  color: white;
 `;

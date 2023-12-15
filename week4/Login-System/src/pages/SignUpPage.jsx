@@ -17,15 +17,20 @@ import {
 const SignUpPage = () => {
   const [id, setId] = useState("");
   const [passwd, setPasswd] = useState("");
+  const [checkPasswd, setCheckPasswd] = useState("");
   const [nickname, setNickname] = useState("");
   const [isExist, setIsExist] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     setIsComplete(
-      id !== "" && isExist === 2 && passwd !== "" && nickname !== ""
+      id !== "" &&
+        isExist === 2 &&
+        passwd !== "" &&
+        passwd === checkPasswd &&
+        nickname !== ""
     );
-  }, [id, isExist, passwd, nickname]);
+  }, [id, isExist, passwd, checkPasswd, nickname]);
 
   const navigate = useNavigate();
 
@@ -36,6 +41,10 @@ const SignUpPage = () => {
 
   const handleChangePasswdInput = (e) => {
     setPasswd(e.target.value);
+  };
+
+  const handleChangePasswdCheckInput = (e) => {
+    setCheckPasswd(e.target.value);
   };
 
   const handleChangeNicknameInput = (e) => {
@@ -62,8 +71,6 @@ const SignUpPage = () => {
         });
     }
   };
-
-  console.log(isExist);
 
   const handleClickCompleteSignUpButton = () => {
     axios({
@@ -115,6 +122,17 @@ const SignUpPage = () => {
             placeholder="비밀번호를 입력해주세요"
             value={passwd}
             onChange={handleChangePasswdInput}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <InputOptionText>비밀번호 확인</InputOptionText>
+          <InputBox
+            type="text"
+            name=""
+            id=""
+            placeholder="비밀번호를 다시 한 번 입력해주세요"
+            value={checkPasswd}
+            onChange={handleChangePasswdCheckInput}
           />
         </InputWrapper>
         <InputWrapper>

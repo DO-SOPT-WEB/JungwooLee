@@ -5,6 +5,8 @@ export const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   width: 100%;
   height: 100vh;
 
